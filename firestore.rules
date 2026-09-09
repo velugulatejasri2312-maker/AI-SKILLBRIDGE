@@ -1,0 +1,45 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper: Is the user authenticated?
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Helper: Does the authenticated user match the resource owner/creator?
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    // 1. Users collection
+    match /users/{userId} {
+      allow read, write: if true; // In sandbox mode, allow all reads and writes
+    }
+
+    // 2. Companies collection
+    match /companies/{companyId} {
+      allow read, write: if true; // In sandbox mode, allow all reads and writes
+    }
+
+    // 3. Projects collection
+    match /projects/{projectId} {
+      allow read, write: if true; // In sandbox mode, allow all reads and writes
+    }
+
+    // 4. Applications collection
+    match /applications/{applicationId} {
+      allow read, write: if true; // In sandbox mode, allow all reads and writes
+    }
+
+    // 5. Courses collection
+    match /courses/{courseId} {
+      allow read, write: if true; // In sandbox mode, allow all reads and writes
+    }
+
+    // 6. Notifications collection
+    match /notifications/{notificationId} {
+      allow read, write: if true; // In sandbox mode, allow all reads and writes
+    }
+  }
+}

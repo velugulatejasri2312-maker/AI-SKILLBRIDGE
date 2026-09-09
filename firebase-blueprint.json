@@ -1,0 +1,144 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Represents a student, employee, unemployed candidate, or administrator.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "mobileNumber": { "type": "string" },
+        "role": { "type": "string", "enum": ["Student", "Unemployed Candidate", "Employee", "Company", "Admin"] },
+        "location": { "type": "string" },
+        "education": { "type": "string" },
+        "skills": { "type": "array" },
+        "experience": { "type": "string" },
+        "resumeUrl": { "type": "string" },
+        "resumeName": { "type": "string" },
+        "profilePhotoUrl": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["fullName", "email", "role", "location"]
+    },
+    "Company": {
+      "title": "Company",
+      "description": "Represents a company profile in the ecosystem.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "website": { "type": "string" },
+        "location": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "location", "createdBy"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "A project or internship posted by a company.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "companyId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "type": { "type": "string", "enum": ["Project", "Internship"] },
+        "requiredSkills": { "type": "array" },
+        "duration": { "type": "string" },
+        "deadline": { "type": "string" },
+        "vacancies": { "type": "number" },
+        "salary": { "type": "string" },
+        "approved": { "type": "boolean" },
+        "createdBy": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["companyId", "title", "type", "requiredSkills", "vacancies", "deadline"]
+    },
+    "Application": {
+      "title": "Application",
+      "description": "An application submitted by a candidate for a project or internship.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "projectTitle": { "type": "string" },
+        "projectType": { "type": "string" },
+        "companyId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "candidateId": { "type": "string" },
+        "candidateName": { "type": "string" },
+        "candidateEmail": { "type": "string" },
+        "candidateSkills": { "type": "array" },
+        "candidateResumeUrl": { "type": "string" },
+        "candidateResumeName": { "type": "string" },
+        "status": { "type": "string", "enum": ["Pending", "Approved", "Rejected"] },
+        "aiMatchScore": { "type": "number" },
+        "aiReport": { "type": "object" },
+        "appliedAt": { "type": "string" }
+      },
+      "required": ["projectId", "candidateId", "status"]
+    },
+    "Course": {
+      "title": "Course",
+      "description": "Recommended course for learning missing skills.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "skills": { "type": "array" },
+        "duration": { "type": "string" },
+        "difficulty": { "type": "string", "enum": ["Beginner", "Intermediate", "Advanced"] },
+        "certificate": { "type": "boolean" },
+        "outcome": { "type": "string" }
+      },
+      "required": ["name", "description", "skills"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "A notification generated for a user in the ecosystem.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "title", "message", "read", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "/companies/{companyId}": {
+      "schema": "Company",
+      "description": "Company profiles"
+    },
+    "/projects/{projectId}": {
+      "schema": "Project",
+      "description": "Projects and internships"
+    },
+    "/applications/{applicationId}": {
+      "schema": "Application",
+      "description": "Project applications"
+    },
+    "/courses/{courseId}": {
+      "schema": "Course",
+      "description": "Available learning courses"
+    },
+    "/notifications/{notificationId}": {
+      "schema": "Notification",
+      "description": "System and user notifications"
+    }
+  }
+}

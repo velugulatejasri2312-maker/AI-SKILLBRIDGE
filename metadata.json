@@ -1,0 +1,6 @@
+{
+  "name": "AI Skill Bridge",
+  "description": "Location-based skill ecosystem connecting companies, students, unemployed candidates, and employees through AI-powered skill matching, project collaboration, and personalized learning recommendations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

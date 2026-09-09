@@ -1,0 +1,115 @@
+================================================================================
+                    AI SKILL BRIDGE - STEP-BY-STEP RUN GUIDE
+================================================================================
+
+This document provides clear, step-by-step instructions to set up, run, and 
+troubleshoot the AI Skill Bridge application on your machine.
+
+--------------------------------------------------------------------------------
+1. PREREQUISITES
+--------------------------------------------------------------------------------
+Ensure you have the following installed on your system:
+- Node.js (Version 18, 20 LTS, or 24 LTS recommended)
+  Verify installation:
+    node -v
+- npm (Node Package Manager)
+  Verify installation:
+    npm -v
+
+If Node.js is not yet installed:
+- Windows: Download from https://nodejs.org or run in terminal:
+    winget install OpenJS.NodeJS.LTS
+
+--------------------------------------------------------------------------------
+2. ENVIRONMENT CONFIGURATION (.env)
+--------------------------------------------------------------------------------
+A configuration file named `.env` is required in the root directory.
+
+If it does not exist, copy `.env.example`:
+  Windows PowerShell:
+    Copy-Item .env.example .env
+  Command Prompt / Bash:
+    cp .env.example .env
+
+Contents of `.env`:
+  GEMINI_API_KEY=""
+  PORT=3000
+  NODE_ENV=development
+
+Note:
+- If `GEMINI_API_KEY` is left blank, the application automatically falls back to 
+  high-accuracy built-in algorithmic matching and curated course recommendations.
+- If you have a Google Gemini API key, paste it in `GEMINI_API_KEY="your_key_here"`.
+
+--------------------------------------------------------------------------------
+3. INSTALL DEPENDENCIES
+--------------------------------------------------------------------------------
+Open your terminal (PowerShell, CMD, or VS Code terminal) in the project folder:
+  cd c:\Users\Joshna\Downloads\ai-skill-bridge
+
+Run:
+  npm install
+
+* Windows Note:
+  If PowerShell shows a security restriction error regarding script execution:
+    Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+  or run commands using `npm.cmd`:
+    npm.cmd install
+
+--------------------------------------------------------------------------------
+4. RUN THE APPLICATION (DEVELOPMENT MODE)
+--------------------------------------------------------------------------------
+To start the live development server with hot-reload:
+  npm run dev
+
+Expected output:
+  Server running on port 3000
+
+Open your web browser (Chrome, Edge, Firefox, Brave):
+  http://localhost:3000
+
+To stop the server at any time:
+  Press Ctrl + C in the terminal window.
+
+--------------------------------------------------------------------------------
+5. VERIFY SYSTEM HEALTH & API ENDPOINTS
+--------------------------------------------------------------------------------
+While the server is running, you can test the health endpoint:
+- In browser:
+    http://localhost:3000/api/health
+- In PowerShell:
+    Invoke-RestMethod -Uri "http://localhost:3000/api/health"
+
+Expected JSON response:
+  {"status":"ok","timestamp":"...","aiEnabled":true/false}
+
+--------------------------------------------------------------------------------
+6. TYPE CHECKING & PRODUCTION BUILD
+--------------------------------------------------------------------------------
+To verify TypeScript code without compiling:
+  npm run lint
+
+To build the production bundle:
+  npm run build
+
+To run the production build:
+  npm run start
+
+--------------------------------------------------------------------------------
+7. COMMON TROUBLESHOOTING
+--------------------------------------------------------------------------------
+Q1: Port 3000 is already in use.
+A1: Change the port in your `.env` file:
+      PORT=3001
+    Then restart the server (`npm run dev`) and access http://localhost:3001.
+
+Q2: 'node' or 'npm' is not recognized as an internal or external command.
+A2: Add Node.js to your system PATH:
+    - Default path: C:\Program Files\nodejs
+    - In current PowerShell session:
+      $env:Path = "C:\Program Files\nodejs;" + $env:Path
+
+Q3: Firebase warning in console.
+A3: If no Firebase credentials are set in environment variables, the system 
+    operates seamlessly in local storage mode with full offline functionality.
+================================================================================
